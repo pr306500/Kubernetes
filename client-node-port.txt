@@ -1,0 +1,18 @@
+The config file will be feeded into the kubectl cli tool, the kubectl will interprete the file and create an
+object out of this file.
+Generally the config will create an object via kubectl, the object refers to the thing that exists inside the container.
+
+Types of object that will be created:
+ 1. stateful state
+ 2. Replica Controller
+ 3. Pod
+ 4. Service
+#. Objects serve different purposes- running/monitoring a container n setting up networking.
+
+In both the config file, we have the property named "kind" through we refer to the specific type of object.
+First one is the Pod and another one is Service object.
+
+#. What exactly is an object ??
+#. There will be some essential things that will be created inside the Kubernetes to get our application
+   to work the way we might expect.
+   1. The Role of Pod Object is 

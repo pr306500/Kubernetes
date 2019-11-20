@@ -1,0 +1,40 @@
+l. What is Kubernetes ?
+   It's a system for running different types of containers n different number of containers over 
+   several different computers / VM / nodes.
+
+2. Why use Kubernetes ?
+   When we need to run different containers with different images. 
+
+In our current application we have 4 containers[nginx, server, client and worker]. The worker container is responsible for
+algorithmic part hence if a lot of traffic comes then we need to scale up the worker container.
+
+**. Scaling Strategy for Elatic BeanStalk .**
+In this rather creating more copies of the specific container (video 169:3.00) what elastic beanstalk actually
+does, it may create 2,3,4 or 5 different sets of all of our containers.
+As per the Elastic BeanStalk approach we will have [nginx, server, client] containers more in number but they might not 
+be the limiting factor.
+
+Kubernetive Cluster: Cluster in the world of kuberbatives is assembly of someting called master and one or more nodes(VM).(video:169:5:04)
+Node is a VM that will be used to run some number of different containers. In the world of Kubernetives all these different nodes are
+managed by Master. Master has set of program running to control what each of these different Nodes are running at any given point of time.
+
+Kubernetes is best when we need to run multiple different types of containers but if we have an application that would have largely 
+just one type of container inside of it, Kubernetes might not be the  best solution for it.
+
+                            *********WORKING With Kubernetes**********
+
+In Dev Env we use minikube and it's a cmd line tool whose sole purpose is to setup kubernetes cluster on our local system
+In Prod Env, we freq make use of managed solution, they are the references to outside cloud providers such as AWS. AWS has a 
+service to implement kubernetes i.e. A.Elastic.Container .
+
+Minikube is going to create a kubernete cluster on our local machine basically it's going to create a VM(nodes) behind the scene
+whose sole purpose is to run the container.
+
+Kubectl is used to tell a VM what sort of containers it's supposed to be running (instruction rel to node exec) or essentially manage what
+node is doing (status). Minikube is just used to create and run a kubernetes cluster on our local machine but in prod env it falls away. 
+
+Local Kubernetes Development:
+Install Kubectl (cli for interacting with master) >> Install a VM driver virtual box >> install minikube (runs a single node on that VM) 
+
+GOAL: To run multi-client image on our local Kubernetes Cluster(set of nodes n master) running inside the container.
+
