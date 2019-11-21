@@ -5,8 +5,8 @@ Generally the config will create an object via kubectl, the object refers to the
 Types of object that will be created:
  1. stateful state
  2. Replica Controller
- 3. Pod
- 4. Service
+ 3. Pod - [Run the container]
+ 4. Service - [Set up some networking inside our community cluster] 
 #. Objects serve different purposes- running/monitoring a container n setting up networking.
 
 In both the config file, we have the property named "kind" through we refer to the specific type of object.
@@ -15,4 +15,34 @@ First one is the Pod and another one is Service object.
 #. What exactly is an object ??
 #. There will be some essential things that will be created inside the Kubernetes to get our application
    to work the way we might expect.
-   1. The Role of Pod Object is 
+
+
+The apiVersion v1 specifies that we could use some specific set of Objects	like:
+  apiVersion: v1 ["componentStatus","configMap","Endpoints","Event","Namespace","Pod"]
+  apiVersion: apps/v2 ["controllerRevision","StatefulSet"] 
+
+** Approach: We wanted to create something to create the container inside the kubernete application
+   If I need to create Pod, then I need to use apiVersion: v1 in order to use this Object.
+
+## Running Containers in Pods:
+   ---------------------------
+
+When I ran the cmd minikube start, it created the new virtual machine on our computer, we refer to that VM running on our local
+as node that node will be used by the Kubernetives to run some number of different objects.
+
+When we pass the config through kubectl it will gonna create a pod inside the VM(Node). The pod in itself is the group of containers
+with c'mon purpose. In Kubernetes we do not have the ability to just run the single container by itself with no associated overhead.
+
+The smallest thing that we could deploy is the Pod n we will always be deplyoing containers within a pod. The req of the POD is that 
+we must run one or more containers inside of it.
+
+The purpose of the POD is to allow that grouping of containers with a very similar purpose or containers deployed together & must be running
+together in order to make the app work correctly. 
+
+The POD should contain the set of containers tightly coupled.
+
+So, we are basically creating one pod thats going to run one container inside of it and we have to give the arbitrary name to it, in
+our case it's 'client' and through this name we refer to the running container. We could also use this name property to get some networking
+or connections b/w these different containers taht are running inside the same pod.  
+The image property is the repo present on the docker-hub that this container is made out of. The ports property refers to the container
+named client that on this container we waant to expose the port 3000to the outside world.
