@@ -6,3 +6,4 @@
     change our Kubernetes      }
        cluser 
       }
+*. The cmd in order to fetch the status of the pods: kubectl get pods 
