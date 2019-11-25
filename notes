@@ -17,7 +17,7 @@ be the limiting factor.
 Kubernetive Cluster: Cluster in the world of kubernetes is assembly of something called master and one or more nodes(VM).(video:169:5:04)
 Node is a VM that will be used to run some number of different containers. In the world of Kubernetives all these different nodes are
 managed by Master. Master has set of program running to control what each of these different Nodes are running at any given point of time.
-
+ 
 Kubernetes is best when we need to run multiple different types of containers but if we have an application that would have largely 
 just one type of container inside of it, Kubernetes might not be the best solution for it.
 

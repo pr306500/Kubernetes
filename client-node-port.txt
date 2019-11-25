@@ -3,7 +3,7 @@ object out of this file.
 Generally the config will create an object via kubectl, the object refers to the thing that exists inside the container.
 
 Types of object that will be created:
- 1. stateful state
+ 1. stateful s tate
  2. Replica Controller
  3. Pod - [Run the container]
  4. Service - [Set up some networking inside our Kubernete cluster]
