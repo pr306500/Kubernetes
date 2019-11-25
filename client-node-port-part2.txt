@@ -1,0 +1,8 @@
+#. Feed the config file to the kubectl tool, below is the cmd to exec it:
+   1. kubectl                  apply           -f          <filename> {path to the file with the config}
+      {                        { 
+                            change the current 
+        CLI we use to       config of our cluster
+    change our Kubernetes      }
+       cluser 
+      }

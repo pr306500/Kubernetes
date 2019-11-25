@@ -6,10 +6,11 @@ Types of object that will be created:
  1. stateful state
  2. Replica Controller
  3. Pod - [Run the container]
- 4. Service - [Set up some networking inside our community cluster] 
-#. Objects serve different purposes- running/monitoring a container n setting up networking.
+ 4. Service - [Set up some networking inside our Kubernete cluster]
 
-In both the config file, we have the property named "kind" through we refer to the specific type of object.
+#. Objects serve different purposes- running/monitoring a container n setting up networking.
+                                                                                             
+In both the config file, we have the property named "kind" through which we refer to the specific type of object.
 First one is the Pod and another one is Service object.
 
 #. What exactly is an object ??
@@ -27,13 +28,13 @@ The apiVersion v1 specifies that we could use some specific set of Objects	like:
 ## Running Containers in Pods:
    ---------------------------
 
-When I ran the cmd minikube start, it created the new virtual machine on our computer, we refer to that VM running on our local
+When I ran the cmd "minikube start", it created the new virtual machine on our computer, we refer to that VM running on our local
 as node that node will be used by the Kubernetives to run some number of different objects.
 
 When we pass the config through kubectl it will gonna create a pod inside the VM(Node). The pod in itself is the group of containers
 with c'mon purpose. In Kubernetes we do not have the ability to just run the single container by itself with no associated overhead.
 
-The smallest thing that we could deploy is the Pod n we will always be deplyoing containers within a pod. The req of the POD is that 
+The smallest thing that we could deploy is the Pod n we will always be deplyoing containers within a pod. The pre-requisite of the POD is that 
 we must run one or more containers inside of it.
 
 The purpose of the POD is to allow that grouping of containers with a very similar purpose or containers deployed together & must be running
@@ -43,6 +44,36 @@ The POD should contain the set of containers tightly coupled.
 
 So, we are basically creating one pod thats going to run one container inside of it and we have to give the arbitrary name to it, in
 our case it's 'client' and through this name we refer to the running container. We could also use this name property to get some networking
-or connections b/w these different containers taht are running inside the same pod.  
+or connections b/w these different containers that are running inside the same pod.  
 The image property is the repo present on the docker-hub that this container is made out of. The ports property refers to the container
-named client that on this container we waant to expose the port 3000to the outside world.
+named client that on this container we want to expose the port 3000 to the outside world.
+
+## Service config File in Depth
+   ----------------------------
+
+   Metadata Section: "name" is the property which refers to the pod which got created and it's basically used for logging purposes.
+   Another piece of inf inside of metadata is "labels" with "component" as web which is tightly coupled to another config file.
+
+   We have 4 other sub-types in Services object:- cluster IP, NodePort [Exposes the container to the outside world], LoadBalancer, Ingress.
+   Through NodePort we could access the container from the outside browser and it's good for dev puposes not for prod env.
+
+   To understand the flow: (video- 3:57)
+   =====================================
+   When we run "minikube start" cmd, the Kubernetes Node VM gets created and inside it we have kubeproxy, Service Nodeport, Pod. The pod
+   has container running inside of it and listening at port "3000". The Kuberproxy is the one single window to the outside world and it 
+   inspect the request and decide how to rute it to different services or pods that we may have created inside of this node.
+
+   The "client-node-port.yml" file responsibility is to send the traffic to the client pod i.e. "client-pod.yml" file. 
+
+   These 2 objects get linked together via "metadata >> labels >> component" property.
+
+   When the "client-node-port.yaml" object type "Service" named Service boots up it need to do some port forwrding
+   to the POD or object having "selector >> component" as web.
+
+   The targetPort would be identical to the containerPort mentoned inside the client-pod.yml.
+   The "port" property inside the NodePort Service will be the port property that another pod or another container inside of our
+   app could access the multiclient pod. In short if there is another POD inside the application and needs access to the multi-client
+   pod, it couls connect through this port designation
+
+   The nodePort is the port that we will be going to use via browser in order to test out the container running inside the node. 
+   The nodeport will b going in between 30000 - 32767
