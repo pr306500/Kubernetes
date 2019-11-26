@@ -6,7 +6,17 @@
     change our Kubernetes      }
        cluser 
       }
-*. The cmd in order to fetch the status of the pods: kubectl get pods 
+*. The cmd in order to fetch the status of the running pods: kubectl get pods
+   NAME     READY	STATUS 		RESTARTS 	AGE
+client-pod   1/1     Running 	   0         1h
+
+ In case of "READY" 1/1, numerator 1 represents the number of pods that are running.
+                         denominator 1 represents the number of copies that we want to have.
+  
+  If we want to scale our application we might want to have multiple copies of the exact same pod running.
+
+*. "kubectl get services" cmd fetches all the status of the running services (type of object)
+
 
 /********************************** Rest Info is written inside the NoteBook*****************************************/
 
