@@ -7,3 +7,20 @@
        cluser 
       }
 *. The cmd in order to fetch the status of the pods: kubectl get pods 
+
+/********************************** Rest Info is written inside the NoteBook*****************************************/
+
+*. cmd: minikube start, it helps us in creating the VM(Node).
+*. When we ran the cmd <kubectl apply -f "client-pod.yaml">, the file gets passed to master. The kube-apiserver program is
+   100% responsible for monitoring the current status of all diff nodes inside of the cluster & making sure that they are doing the correct
+   thing. If we crash the container manually, it get restarted for us.
+   In the deployment file ("client-pod.yaml") we could configure it in such a way that we could have 4 copies of "multi-worker" container.
+   VM created by minikube has be-default docker up and running inside it. The Docker is going to reach out to Docker Hub n gonna find the 
+   multi-worker image over there and download it over local cache inside the Node. Technically the containers will run inside the pod interface.
+*. Anything that happens inside these Nodes, the master gets the notification so when we the cmd "docker kill <container_id>" one of the container
+   inside the Node got killed as a result master gets the notification. Master re-check the config requirements like we need 4 copies but currently 
+   only 3 are up and running hence master asks the nodes to run the additional copy of the "multi-worker" running.
+   It's up to the master to reach out to some node and tell it to do some amount of work to fulfill the master's list of responsibilities, we cannot
+   directly communicate to the nodes it culd only happen via master thrigh kubectl cli.
+*. video(3:02), Node in Kubernetes world is a computer / VM that is going to run some number of objects that we created
+   inside our cluster
