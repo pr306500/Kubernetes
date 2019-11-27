@@ -34,3 +34,49 @@ client-pod   1/1     Running 	   0         1h
    directly communicate to the nodes it culd only happen via master thrigh kubectl cli.
 *. video(3:02), Node in Kubernetes world is a computer / VM that is going to run some number of objects that we created
    inside our cluster
+
+   *****************************************Wednesday(11/27/2019)***************************************
+   # Why use services??
+    <kubectl get pods -o wide> fetches extra data in case of "deployment" object will get IP and node extra in the output.
+    Evey pod that we create gets its own IP address assigned to it. This IP address is internal to our VM, so we cannot
+    visit this IP easily.
+
+    Port mapping Flow Diagram is Imp (192:3.37).
+
+    The Service Object is going to watch for every pod that matches its selector, in our case service has a selector of component: web.
+    So the service is going to look for the every pod with that selector and then automatically route traffic directly to it.
+
+    # Scaling and Changing Deploments
+  
+  We modified the file config where to set th replicas value from 1 to 5 and re-deployed it. When we ran the cmd: kubectl get pods,
+  we will see the 5 separate pods each of which is running a unique copy of that very specific multi-client.
+    
+    # Updating Deployment Images:
+
+ **. How we can update a deployment when a new version of image becomes available ? (Tricky Part)
+ Approach 1: 
+   Manually delete pods to get the deployment(master) to recreate them with the latest version.
+
+ Approach 2:
+   Tag build images with a real version number & specify that version in the config file.
+   So basically we are saying to first update the image with the version number via docker build cmd & then
+   change the config file to  the version recently updated.  
+
+ Approach 3: [Reasonable Solution]
+   Use an imperative cmd to update the image version the deployment should use.  
+ 
+  # Imperatively Updating a Deployment's image
+
+  Update Image Version: 
+  Tag the image with version number, push it to docker hub. >> Run a kubectl cmd forcing the deployment to
+  use the new version image.
+
+  => kubectl            set           image              <object_type> / <object_name>     <container_name>  = <new image to use>
+  "cli we use to     " we want      "we want to change
+   change our         to change      the image property"    "deployment"
+   Kubernetes         a property "
+   cluster"
+
+   cmd: kubectl set image deployment/client-deployment client=stephengrider/multi-client:v5 
+
+   
